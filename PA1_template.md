@@ -67,7 +67,7 @@ median(stepsPerDay$steps)
 ```
 
 ## What is the average daily activity pattern?
-The time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis) was as follows:
+The time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis), was as follows:
 
 ```r
 library(ggplot2)
@@ -148,20 +148,21 @@ median(stepsPerDay2$steps)
 Between the original and imputed datasets, the difference in the means was 0 steps per day, while the difference in the medians was 1.1886792 steps per day. As such, the impact of imputing missing data using the chosen method appeared to have no effect on the mean estimate of the total daily number of steps, and a very small impact on the median estimate.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-A new factor variable "day" was added to the dataset to indicate if a given date was a "weekday"" or "weekend".
+A new factor variable "day" was added to the dataset to indicate if a given date was a "weekday" or "weekend".
 
 ```r
 perInterval2 <- mutate(data2, day = format(date, "%u") %in% c(1:5))
 perInterval2$day <- factor(ifelse(perInterval2$day,"weekday","weekend"))
 ```
 
-The time series plot of the 5-minute interval (x-axis) and the average number of steps taken  (y-axis) across weekdays and weekends was as follows:
+The time series plot of the 5-minute interval (x-axis) and the average number of steps taken  (y-axis), across weekdays and weekends, was as follows:
 
 ```r
 perInterval2 <- group_by(perInterval2, interval, day)
 stepsPerInterval2 <- summarise(perInterval2,
   steps = mean(steps))
-qplot(interval, steps, data = stepsPerInterval2, geom = "path", facets = day ~ ., xlab = "Interval", ylab = "Number of steps")
+qplot(interval, steps, data = stepsPerInterval2, geom = "path", facets = day ~ .,
+  xlab = "Interval", ylab = "Number of steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
